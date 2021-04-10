@@ -20,6 +20,8 @@ const initialState = {
   ]
 }
 
+// reducer
+
 const rootReducer = (state = initialState, {type, payload}) => {
   switch (type) {
     case types.ADD_TASK:
