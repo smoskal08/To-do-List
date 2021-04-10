@@ -1,10 +1,11 @@
 import { types } from 'types';
 
-export const addTask = (id, title) => ({
+export const addTask = (id, title, priority) => ({
   type: types.ADD_TASK,
   payload: {
     id,
     title,
+    priority,
     done: false
   }
 })
@@ -16,11 +17,12 @@ export const doneTask = id => ({
   }
 })
 
-export const editTask = (id, title, done) => ({
+export const editTask = (id, title, priority, done) => ({
   type: types.EDIT_TASK,
   payload: {
     id,
     title,
+    priority,
     done
   }
 })

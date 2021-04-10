@@ -29,6 +29,14 @@ const StyledItem = styled.li`
       }
     `
   }
+
+  ${({priority}) =>
+    priority && css`
+      span {
+        color: #d9534f
+      }
+    `
+  }
 `
 
 const StyledButton = styled(Button)`
@@ -38,14 +46,20 @@ const StyledButton = styled(Button)`
 
 const TaskList = ({openModal, tasks, doneTask, removeTask}) => (
   <StyledList>
-    {tasks.map(task => (
-      <StyledItem key={task.id} done={task.done}>
-        <span>{task.title}</span>
-        <StyledButton theme="#5cb85c" onClick={() => doneTask(task.id)}><i className="fas fa-check"></i></StyledButton>
-        <StyledButton theme="#0275d8" onClick={() => openModal(task)}><i className="fas fa-edit"></i></StyledButton>
-        <StyledButton theme="#d9534f" onClick={() => removeTask(task.id)}><i className="fas fa-times"></i></StyledButton>
-      </StyledItem>
-    ))}
+    {
+      tasks.sort((a, b) => {
+        if (a.priority) return -1
+        else if (b.priority) return 1
+        return 0
+      }).map(task => (
+        <StyledItem key={task.id} done={task.done} priority={task.priority}>
+          <span>{task.title}</span>
+          <StyledButton theme="#5cb85c" onClick={() => doneTask(task.id)}><i className="fas fa-check"></i></StyledButton>
+          <StyledButton theme="#0275d8" onClick={() => openModal(task)}><i className="fas fa-edit"></i></StyledButton>
+          <StyledButton theme="#d9534f" onClick={() => removeTask(task.id)}><i className="fas fa-times"></i></StyledButton>
+        </StyledItem>
+      ))
+    }
   </StyledList>
 );
 

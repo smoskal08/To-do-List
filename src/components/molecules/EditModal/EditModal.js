@@ -26,6 +26,10 @@ const StyledField = styled(Field)`
   border-radius: 5px;
 `
 
+const StyledPriorityLabel = styled(Label)`
+  margin-right: 10px;
+`
+
 const EditModal = ({prevValues, closeModal, editTask}) => (
   <div>
     <StyledCloseButtonBox>
@@ -33,12 +37,13 @@ const EditModal = ({prevValues, closeModal, editTask}) => (
     </StyledCloseButtonBox>
     <Formik
       initialValues={{
-        title: prevValues.title
+        title: prevValues.title,
+        priority: prevValues.priority
       }}
-      onSubmit={({title}, {resetForm}) => {
+      onSubmit={({title, priority}, {resetForm}) => {
         const { id, done } = prevValues
-        editTask(id, title, done)
-        resetForm({ title: '' })
+        editTask(id, title, priority, done)
+        resetForm({ title: '', priority: false })
         closeModal()
       }}
     >
@@ -46,6 +51,10 @@ const EditModal = ({prevValues, closeModal, editTask}) => (
         <StyledForm>
           <Label>Title</Label>
           <StyledField name="title" type="text" />
+          <div>
+            <StyledPriorityLabel>Priority</StyledPriorityLabel>
+            <StyledField name="priority" type="checkbox" />
+          </div>
           <Button theme="#0275d8" type="submit">save</Button>
         </StyledForm>
       )}
@@ -54,7 +63,7 @@ const EditModal = ({prevValues, closeModal, editTask}) => (
 );
 
 const mapDispatchToProps = dispatch => ({
-  editTask: (id, title, done) => dispatch(editTaskAction(id, title, done))
+  editTask: (id, title, priority, done) => dispatch(editTaskAction(id, title, priority, done))
 })
 
 export default connect(null, mapDispatchToProps)(EditModal);

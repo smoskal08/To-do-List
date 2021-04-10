@@ -5,22 +5,23 @@ const initialState = {
     {
       id: 1,
       title: "Wygraj w lotto",
+      priority: false,
       done: false
     },
     {
       id: 2,
       title: "Zrób todo-list",
+      priority: true,
       done: false
     },
     {
       id: 3,
       title: "Dodaj edytowanie i usuwanie do todo-list",
+      priority: false,
       done: false
     },
   ]
 }
-
-// reducer
 
 const rootReducer = (state = initialState, {type, payload}) => {
   switch (type) {
@@ -48,6 +49,7 @@ const rootReducer = (state = initialState, {type, payload}) => {
               return {
                 id: payload.id,
                 title: payload.title,
+                priority: payload.priority,
                 done: payload.done
               }
             }

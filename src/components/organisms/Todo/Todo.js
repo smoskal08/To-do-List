@@ -14,10 +14,11 @@ const Todo = () => {
   const [isModalVisible, setModalVisibility] = useState(false)
   const [prevValues, setPrevValues] = useState({})
 
-  const openModal = ({id, title, done}) => {
+  const openModal = ({id, title, priority, done}) => {
     setPrevValues({
       id,
       title,
+      priority,
       done
     })
     setModalVisibility(true)

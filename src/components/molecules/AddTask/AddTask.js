@@ -20,26 +20,35 @@ const StyledField = styled(Field)`
   border-radius: 5px;
 `
 
+const StyledPriorityLabel = styled(Label)`
+  margin-right: 10px;
+`
+
 const AddTask = ({tasks, addTask}) => (
   <Formik
     initialValues={{
-      title: ''
+      title: '',
+      priority: false
     }}
-    onSubmit={({title}, {resetForm}) => {
+    onSubmit={({title, priority}, {resetForm}) => {
       let id
       if (tasks[tasks.length - 1]) {
         id = tasks[tasks.length - 1].id + 1
       } else {
         id = 1
       }
-      addTask(id, title)
-      resetForm({ title: '' })
+      addTask(id, title, priority)
+      resetForm({ title: '', priority: false })
     }}
   >
     {() => (
       <StyledForm>
         <Label>Title</Label>
         <StyledField name="title" type="text" />
+        <div>
+          <StyledPriorityLabel>Priority</StyledPriorityLabel>
+          <StyledField name="priority" type="checkbox" />
+        </div>
         <Button type="submit" theme="#5cb85c">add new task</Button>
       </StyledForm>
     )}
@@ -49,7 +58,7 @@ const AddTask = ({tasks, addTask}) => (
 const mapStateToProps = ({tasks}) => ({tasks})
 
 const mapDispatchToProps = dispatch => ({
-  addTask: (id, title) => dispatch(addTaskAction(id, title))
+  addTask: (id, title, priority) => dispatch(addTaskAction(id, title, priority))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddTask);
