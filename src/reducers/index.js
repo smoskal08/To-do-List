@@ -1,26 +1,7 @@
 import { types } from 'types';
 
 const initialState = {
-  tasks: [
-    {
-      id: 1,
-      title: "Wygraj w lotto",
-      priority: false,
-      done: false
-    },
-    {
-      id: 2,
-      title: "Zrób todo-list",
-      priority: true,
-      done: false
-    },
-    {
-      id: 3,
-      title: "Dodaj edytowanie i usuwanie do todo-list",
-      priority: false,
-      done: false
-    },
-  ]
+  tasks: []
 }
 
 const rootReducer = (state = initialState, {type, payload}) => {
